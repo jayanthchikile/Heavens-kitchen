@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heavens Kitchen 🍽️</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f8f8f8;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #ff5722;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .username {
+            margin-right: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #333;
+            color: white;
+        }
+        /* NAV LINKS CONTAINER */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* BASE BUTTON STYLE */
+.nav-btn {
+    position: relative;
+    padding: 8px 14px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* UNDERLINE ANIMATION */
+.nav-btn::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: white;
+    transition: 0.3s;
+}
+
+.nav-btn:hover::after {
+    width: 100%;
+}
+
+/* HOVER EFFECT */
+.nav-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* PRIMARY BUTTON (BOOK TABLE) */
+.nav-btn.primary {
+    background: white;
+    color: #ff5722;
+    border-radius: 20px;
+    padding: 8px 16px;
+}
+
+/* PRIMARY HOVER */
+.nav-btn.primary:hover {
+    background: #ffe0b2;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">
+        <a href="{% url 'index' %}">🍽️ Heavens Kitchen</a>
+    </div>
+
+    <div class="nav-links">
+        {% if user.is_authenticated %}
+            <span class="username">Hello, {{ user.username }} 👋</span>
+          <div class="nav-links">
+                <a href="{% url 'dashboard' %}" class="nav-btn primary">📊 Dashboard</a>
+                <a href="{% url 'booking' %}" class="nav-btn primary">🍽️ Book Table</a>
+            </div>
+
+            <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button style="background:none; border:none; color:white; cursor:pointer;">
+                    Logout
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+{% block content %}{% endblock %}
+
+<!-- FOOTER -->
+<footer>
+    © 2026 Heavens Kitchen | Fresh Food • Great Taste 🍔
+</footer>
+
+</body>
+</html>

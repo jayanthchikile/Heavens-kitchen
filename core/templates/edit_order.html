@@ -1,0 +1,29 @@
+<h2 style="margin-top:30px;">🛒 Orders</h2>
+
+<table style="width:100%; border-collapse:collapse;">
+    <tr style="background:#444; color:white;">
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for order in orders %}
+    <tr style="background:white; text-align:center;">
+        <td>{{ order.item.name }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>₹{{ order.item.price }}</td>
+        <td>₹{{ order.total_price }}</td>
+
+        <td>
+            <a href="{% url 'edit_order' order.id %}" style="color:blue;">Edit ✏️</a> |
+            <a href="{% url 'delete_order' order.id %}" style="color:red;">Delete ❌</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3 style="margin-top:20px; text-align:right;">
+    Total Bill: ₹{{ total_bill }}
+</h3>

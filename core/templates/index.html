@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    background: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+/* DARK OVERLAY */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+}
+
+/* CONTENT */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 1.5s ease;
+}
+
+.hero h1 {
+    font-size: 50px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin: 10px 0 20px;
+}
+
+/* BUTTONS */
+.hero-btns a {
+    padding: 12px 25px;
+    margin: 10px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 2s;
+}
+
+.btn-primary {
+    background: #ff5722;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #e64a19;
+}
+
+.btn-secondary {
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: black;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FEATURES */
+.features {
+    padding: 50px 20px;
+    text-align: center;
+    background: white;
+}
+
+.feature-box {
+    display: inline-block;
+    width: 250px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+<style>
+
+/* FEATURES SECTION BACKGROUND */
+.features {
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #ff5722, #ff9800);
+    color: white;
+}
+
+/* TITLE */
+.features h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+/* FEATURE CONTAINER */
+.features-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* FEATURE CARD */
+.feature-box {
+    width: 260px;
+    padding: 25px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+/* HOVER EFFECT */
+.feature-box:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ICON STYLE */
+.feature-box h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* ICON ANIMATION */
+.feature-box:hover h3 {
+    color: black;
+    text-shadow: 0 0 10px white;
+}
+
+</style>
+
+</style>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>Welcome to Heavens Kitchen 🍽️</h1>
+        <p>Delicious food • Cozy ambience • Easy booking</p>
+
+        <div class="hero-btns">
+            <a href="{% url 'booking' %}" class="btn-primary">Book Table</a>
+            <a href="{% url 'menu' %}" class="btn-secondary">Explore Menu</a>
+        </div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+    <h2>✨ Why Choose Us?</h2>
+
+    <div class="features-wrapper">
+
+        <div class="feature-box">
+            <h3>🍔 Tasty Food</h3>
+            <p>Fresh ingredients and chef special recipes.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>⏰ Fast Booking</h3>
+            <p>Book your table in seconds with ease.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>💳 Easy Payment</h3>
+            <p>Multiple payment options available.</p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

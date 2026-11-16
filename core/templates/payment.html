@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+/* BACKGROUND */
+body {
+    background: linear-gradient(-45deg, #ff5722, #ff9800, #ff7043, #ffcc80);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+}
+
+/* ANIMATION */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* PAYMENT BOX */
+.payment-box {
+    max-width: 420px;
+    margin: auto;
+    margin-top: 70px;
+    padding: 35px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    text-align: center;
+    color: white;
+    animation: fadeIn 1s ease;
+}
+
+/* ENTRY ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TITLE */
+.payment-box h2 {
+    margin-bottom: 20px;
+}
+
+/* INPUT */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* PLACEHOLDER */
+input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+/* SELECT */
+select option {
+    color: black;
+}
+
+/* PAYMENT METHOD BOX */
+.method-box {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.method {
+    flex: 1;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.method:hover {
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.05);
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    background: linear-gradient(45deg, #ff5722, #ff9800);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* BUTTON HOVER */
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+}
+
+/* SUCCESS MESSAGE */
+.success {
+    background: rgba(0,255,0,0.2);
+    border: 1px solid rgba(0,255,0,0.4);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+</style>
+
+<div class="payment-box">
+
+    <h2>💳 Heavens Kitchen Payment</h2>
+
+    {% if success %}
+        <div class="success">
+            🎉 Payment Successful!
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="number" name="amount" placeholder="Enter Amount (₹)" required>
+
+        <!-- PAYMENT METHODS -->
+        <div class="method-box">
+            <div class="method">📱 UPI</div>
+            <div class="method">💳 Card</div>
+            <div class="method">💵 Cash</div>
+        </div>
+
+        <select name="method">
+            <option value="UPI">UPI</option>
+            <option value="Card">Card</option>
+            <option value="Cash">Cash</option>
+        </select>
+
+        <button type="submit">🚀 Pay Now</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- 🍔 FOOD BACKGROUND -->
+<div class="food-bg">
+    <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/135/135620.png">
+</div>
+
+<style>
+
+/* 🌈 Background */
+body {
+    background: linear-gradient(-45deg, #ff7e5f, #feb47b, #ff512f, #dd2476);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    font-family: Arial;
+}
+
+/* 🍔 Floating food */
+.food-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.food-bg img {
+    position: absolute;
+    width: 60px;
+    opacity: 0.1;
+    animation: floatFood linear infinite;
+}
+
+.food-bg img:nth-child(1){left:20%; animation-duration:15s;}
+.food-bg img:nth-child(2){left:50%; animation-duration:18s;}
+.food-bg img:nth-child(3){left:80%; animation-duration:20s;}
+
+/* Section */
+.menu-section {
+    margin-bottom: 50px;
+}
+
+/* Title */
+.menu-title {
+    font-size: 26px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Cards */
+.menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.menu-card {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    width: 230px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.4s;
+}
+
+.menu-card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+/* ✅ FIXED FOOD IMAGES */
+.food-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Price */
+.price {
+    color: white;
+    font-weight: bold;
+}
+
+/* Button */
+.order-btn {
+    padding: 8px 14px;
+    background: #ff5722;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.order-btn:hover {
+    background: #e64a19;
+}
+
+/* Animations */
+@keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+@keyframes floatFood {
+    0%{top:100%;}
+    100%{top:-10%;}
+}
+
+</style>
+
+<h2 style="color:white;">🍔 Heavens Kitchen Menu</h2>
+
+{% for category, items in grouped_items.items %}
+
+<div class="menu-section">
+    <div class="menu-title">🍽️ {{ category }}</div>
+
+    <div class="menu-container">
+        {% for item in items %}
+        <div class="menu-card">
+
+            <!-- 🔥 RELIABLE IMAGE BASED ON CATEGORY -->
+            {% if category == "Fast Food" %}
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd" class="food-img">
+            {% elif category == "Indian" %}
+                <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398" class="food-img">
+            {% elif category == "Drinks" %}
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6c6f" class="food-img">
+            {% else %}
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" class="food-img">
+            {% endif %}
+
+            <h3 style="color:white;">{{ item.name }}</h3>
+            <p class="price">₹{{ item.price }}</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <input type="number" name="quantity" value="1" min="1">
+
+                <button type="submit" class="order-btn">
+                    Order Now 🛒
+                </button>
+            </form>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
